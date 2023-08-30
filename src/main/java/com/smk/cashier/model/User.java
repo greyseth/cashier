@@ -2,7 +2,7 @@ package com.smk.cashier.model;
 
 public class User extends Model {
     private Integer id;
-    private String username;
+    private String userName;
     private String password;
 
     //Getters
@@ -11,7 +11,7 @@ public class User extends Model {
     }
 
     public String getUsername() {
-        return username;
+        return userName;
     }
 
     public String getPassword() {
@@ -23,8 +23,8 @@ public class User extends Model {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String userName) {
+        this.userName = userName;
     }
 
     public void setPassword(String password) {
@@ -35,7 +35,7 @@ public class User extends Model {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", createdDate=" + createdDate +
                 ", lastModifiedDate=" + lastModifiedDate +

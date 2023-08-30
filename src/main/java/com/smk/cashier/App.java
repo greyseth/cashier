@@ -20,7 +20,7 @@ public class App
         System.out.println("Password: ");
         String password = scanner.next();
 
-        if (username == user.getUsername() && password == user.getPassword()) {
+        if (username.equals(user.getUsername()) && password.equals(user.getPassword())) {
             System.out.println("Welcome, "+user.getUsername()+".");
         }else {
             System.out.println("Invalid credentials");
