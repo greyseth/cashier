@@ -23,7 +23,7 @@ public class User extends Model {
         this.id = id;
     }
 
-    public void setUsername(String userName) {
+    public void setUsername(String username) {
         this.userName = userName;
     }
 
@@ -35,7 +35,7 @@ public class User extends Model {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
+                ", username='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", createdDate=" + createdDate +
                 ", lastModifiedDate=" + lastModifiedDate +
