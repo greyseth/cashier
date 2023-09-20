@@ -16,10 +16,8 @@ public class BarangService {
 
     private BarangService() {
         try {
-
-
-            bReader = new FileReader("barang.txt");
             bWriter = new FileWriter("barang.txt");
+            bReader = new FileReader("barang.txt");
             //what is this ide
             //how is it so advanced
         } catch (IOException e) {
@@ -37,6 +35,7 @@ public class BarangService {
         BufferedReader bufferedReader = new BufferedReader(bReader);
         List<String> strList = bufferedReader.lines().toList();
 
+        bList = new LinkedList<>();
         for (String str :
                 strList) {
             bList.add(parseLineToBarang(str));
@@ -44,6 +43,12 @@ public class BarangService {
     }
 
     private void writeFile() {
+        try {
+            bWriter = new FileWriter("barang.txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         BufferedWriter bufferedWriter = new BufferedWriter(bWriter);
         for (int i = 0; i < bList.size(); i++) {
             Barang barang = bList.get(i);
