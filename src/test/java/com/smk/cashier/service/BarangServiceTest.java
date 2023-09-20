@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class BarangServiceTest {
 
+    //Gets list of barang
     @Test
     @Order(2)
     void getBarangList() {

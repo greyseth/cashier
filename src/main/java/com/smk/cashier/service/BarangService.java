@@ -35,6 +35,7 @@ public class BarangService {
         BufferedReader bufferedReader = new BufferedReader(bReader);
         List<String> strList = bufferedReader.lines().toList();
 
+        //Overwrites bList into empty list
         bList = new LinkedList<>();
         for (String str :
                 strList) {
