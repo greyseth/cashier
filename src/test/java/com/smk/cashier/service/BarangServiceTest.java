@@ -13,12 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class BarangServiceTest {
 
-    //Gets list of barang
     @Test
     @Order(2)
     void getBarangList() {
         List<Barang> bList = BarangService.getInstance().getBarangList();
-        assertEquals(bList.size(), 2);
+        assertEquals(bList.size(), 3);
     }
 
     @Test
@@ -26,7 +25,7 @@ class BarangServiceTest {
     void addBarang() {
         Barang laptop = new Barang();
         laptop.setKode("B001");
-        laptop.setNama("Lapppy toppy");
+        laptop.setNama("Lappy toppy");
         laptop.setHarga(10000000);
         BarangService.getInstance().addBarang(laptop);
 
@@ -35,5 +34,18 @@ class BarangServiceTest {
         mouse.setNama("Mousey mouse");
         mouse.setHarga(120000);
         BarangService.getInstance().addBarang(mouse);
+
+        Barang pc = new Barang();
+        pc.setKode("B003");
+        pc.setNama("Lappy geming edition");
+        pc.setHarga(69420);
+        BarangService.getInstance().addBarang(pc);
+    }
+
+    @Test
+    @Order(3)
+    void findByName() {
+        List<Barang> res = BarangService.getInstance().findByName("Lappy");
+        assertEquals(res.size(), 2);
     }
 }
