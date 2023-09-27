@@ -54,6 +54,8 @@ public class StockService {
             Stock stock = sList.get(i);
 
             StringBuilder sb = new StringBuilder();
+            sb.append(stock.getId());
+            sb.append("|");
             sb.append(stock.getKode());
             sb.append("|");
             sb.append(stock.getStock());
@@ -80,8 +82,9 @@ public class StockService {
         int id = 0;
         Stock stock = new Stock();
         while(st.hasMoreElements()) {
-            if (id == 0) stock.setKode(st.nextToken());
-            else if (id == 1) stock.setStock(Integer.parseInt(st.nextToken()));
+            if (id == 0) stock.setId(Integer.parseInt(st.nextToken()));
+            else if (id == 1) stock.setKode(st.nextToken());
+            else if (id == 2) stock.setStock(Integer.parseInt(st.nextToken()));
 
             id++;
         }
