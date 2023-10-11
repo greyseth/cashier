@@ -8,20 +8,20 @@ public class Stock extends Model {
     public int getId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int newId) {
+        this.id = newId;
     }
     public String getKode() {
         return kode;
     }
-    public void setKode(String kode) {
-        this.kode = kode;
+    public void setKode(String newKode) {
+        this.kode = newKode;
     }
     public int getStock() {
         return stock;
     }
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setStock(int newStock) {
+        this.stock = newStock;
     }
 
     @Override
