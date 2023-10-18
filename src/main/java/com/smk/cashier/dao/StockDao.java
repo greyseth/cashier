@@ -1,70 +1,69 @@
 package com.smk.cashier.dao;
 
-import com.smk.cashier.model.Barang;
+import com.smk.cashier.model.Stock;
 
 import java.sql.*;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
-public class BarangDao implements Dao<Barang, Integer>{
+public class StockDao implements Dao<Stock, Integer> {
     private final Optional<Connection> conn;
 
-    public BarangDao() {
+    public StockDao() {
         conn = JdbcConnection.getConn();
     }
 
     @Override
-    public Optional<Barang> get(int id) {
+    public Optional<Stock> get(int id) {
         return conn.flatMap(c -> {
-            Optional<Barang> barang = Optional.empty();
+            Optional<Stock> stock = Optional.empty();
 
-            String query = "SELECT * FROM barang WHERE id = ?;";
+            String query = "SELECT * FROM stock WHERE id = ?;";
             try {
                 PreparedStatement ps = c.prepareStatement(query);
                 ps.setInt(1, id);
 
                 ResultSet rs = ps.executeQuery();
                 if (rs.next()) {
+                    int stockId = rs.getInt("id");
                     String kode = rs.getString("kode");
-                    String nama = rs.getString("nama");
-                    int harga = rs.getInt("harga");
+                    int stockNum = rs.getInt("stock");
 
-                    Barang result = new Barang();
+                    Stock result = new Stock();
+                    result.setId(stockId);
                     result.setKode(kode);
-                    result.setNama(nama);
-                    result.setHarga(harga);
+                    result.setStock(stockNum);
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            return barang;
+            return stock;
         });
     }
 
     @Override
-    public Collection<Barang> getAll() {
+    public Collection<Stock> getAll() {
         return null;
     }
 
     @Override
-    public Optional<Integer> save(Barang barang) {
-        Barang nonNullB = Objects.requireNonNull(barang);
-        String query = "INSERT INTO barang(kode, nama, harga, last_modified, updated_by, created_by, date_created) "+
+    public Optional<Integer> save(Stock stock) {
+        Stock nonNullB = Objects.requireNonNull(stock);
+        String query = "INSERT INTO stock(kode, stock, last_modified, updated_by, created_by, date_created) "+
                 "VALUES(?, ?, ?, ?, ?, ?, ?);";
 
         return conn.flatMap(c -> {
             Optional<Integer> generatedID = Optional.empty();
             try {
                 PreparedStatement ps = c.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, barang.getKode());
-                ps.setString(2, barang.getNama());
-                ps.setInt(3, barang.getHarga());
-                ps.setDate(4, new Date(barang.getLast_modified().getTime()));
-                ps.setString(5, barang.getUpdatedBy());
-                ps.setString(6, barang.getCreatedBy());
-                ps.setDate(7, new Date(barang.getDate_created().getTime()));
+                ps.setString(1, stock.getKode());
+                ps.setInt(2, stock.getStock());
+                ps.setDate(4, new Date(stock.getLastModified().getTime()));
+                ps.setString(5, stock.getUpdatedBy());
+                ps.setString(6, stock.getCreatedBy());
+                ps.setDate(7, new Date(stock.getCreatedDate().getTime()));
 
                 int numberOfInsertedRows = ps.executeUpdate();
                 if (numberOfInsertedRows > 0) {
@@ -82,12 +81,12 @@ public class BarangDao implements Dao<Barang, Integer>{
     }
 
     @Override
-    public void update(Barang barang) {
+    public void update(Stock stock) {
 
     }
 
     @Override
-    public void delete(Barang barang) {
+    public void delete(Stock stock) {
 
     }
 }

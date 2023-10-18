@@ -9,6 +9,8 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,5 +81,37 @@ class BarangServiceTest {
         pc.setDate_created(new Date());
         pc.setLast_modified(new Date());
         dao.save(pc);
+    }
+
+    @Test
+    @Order(5)
+    void getById() {
+        BarangDao dao = new BarangDao();
+        Optional<Barang> b1 = dao.get(1);
+        b1.ifPresent(new Consumer<Barang>() {
+            @Override
+            public void accept(Barang barang) {
+                assertEquals("Lappy Toppy", barang.getNama());
+                assertEquals("B001", barang.getKode());
+            }
+        });
+
+        Optional<Barang> b2 = dao.get(2);
+        b2.ifPresent(new Consumer<Barang>() {
+            @Override
+            public void accept(Barang barang) {
+                assertEquals("Mousey Mouse", barang.getNama());
+                assertEquals("B002", barang.getKode());
+            }
+        });
+
+        Optional<Barang> b3 = dao.get(3);
+        b3.ifPresent(new Consumer<Barang>() {
+            @Override
+            public void accept(Barang barang) {
+                assertEquals("Lappy geming edition", barang.getNama());
+                assertEquals("B003", barang.getKode());
+            }
+        });
     }
 }
