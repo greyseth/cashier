@@ -114,4 +114,28 @@ class BarangServiceTest {
             }
         });
     }
+
+    @Test
+    @Order(6)
+    void UpdateBarang() {
+        BarangDao dao = new BarangDao();
+
+        Barang bUpd = new Barang();
+        bUpd.setKode("B001");
+        bUpd.setNama("Lap");
+        bUpd.setHarga(10000);
+
+        dao.update(bUpd);
+
+        Optional<Barang> b1 = dao.get(1);
+        b1.ifPresent(new Consumer<Barang>() {
+            @Override
+            public void accept(Barang barang) {
+                assertEquals("Lap", barang.getNama());
+                assertEquals(10000, barang.getHarga());
+                assertEquals("B001", barang.getKode());
+            }
+        });
+    }
+
 }
