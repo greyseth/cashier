@@ -54,7 +54,7 @@ public class Barang extends Model {
         this.date_created = date_created;
     }
 
-    public Date getLast_modified() {
+    public java.util.Date getLast_modified() {
         return last_modified;
     }
 
