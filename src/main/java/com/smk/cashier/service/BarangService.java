@@ -18,8 +18,6 @@ public class BarangService {
         try {
             bWriter = new FileWriter("barang.txt");
             bReader = new FileReader("barang.txt");
-            //what is this ide
-            //how is it so advanced
         } catch (IOException e) {
             e.printStackTrace();
         }

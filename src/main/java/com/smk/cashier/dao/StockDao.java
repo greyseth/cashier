@@ -89,4 +89,10 @@ public class StockDao implements Dao<Stock, Integer> {
     public void delete(Stock stock) {
 
     }
+
+    @Override
+    public Collection<Stock> search(String keyword) {
+        return null;
+    }
+
 }

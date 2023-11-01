@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -138,4 +139,50 @@ class BarangServiceTest {
         });
     }
 
+    @Test
+    @Order(7)
+    void deleteBarang() {
+        BarangDao dao = new BarangDao();
+
+        Barang b = new Barang();
+        b.setKode("B001");
+
+        dao.delete(b);
+
+        Optional<Barang> b1 = dao.get(1);
+        assertEquals(b1.isPresent(), false);
+    }
+
+    @Test
+    @Order(8)
+    void search() {
+        BarangDao dao = new BarangDao();
+
+//        Barang newB1 = new Barang();
+//        newB1.setKode("B001");
+//        newB1.setNama("Bluetooth keyboard");
+//        newB1.setHarga(120000);
+//        newB1.setLast_modified(new Date());
+//        newB1.setDate_created(new Date());
+//        dao.save(newB1);
+//
+//        Barang newB2 = new Barang();
+//        newB2.setKode("B004");
+//        newB2.setNama("Bluetooth speaker");
+//        newB2.setHarga(50000);
+//        newB2.setLast_modified(new Date());
+//        newB2.setDate_created(new Date());
+//        dao.save(newB2);
+//
+//        Barang newB3 = new Barang();
+//        newB3.setKode("B005");
+//        newB3.setNama("Laptop new edition");
+//        newB3.setHarga(2000000);
+//        newB3.setLast_modified(new Date());
+//        newB3.setDate_created(new Date());
+//        dao.save(newB3);
+
+        Collection<Barang> searched = dao.search("Bluetooth");
+        assertEquals(searched.size(), 2);
+    }
 }
