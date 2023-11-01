@@ -4,6 +4,7 @@ import com.smk.cashier.model.Barang;
 
 import java.sql.*;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -104,6 +105,58 @@ public class BarangDao implements Dao<Barang, Integer>{
 
     @Override
     public void delete(Barang barang) {
+        Barang nonNullBarang = Objects.requireNonNull(barang);
+        String query = "DELETE FROM barang WHERE kode = ?";
+        conn.ifPresent(c -> {
+            try {
+                PreparedStatement ps = c.prepareStatement(query);
+                ps.setString(1, barang.getKode());
+                int affectedRows = ps.executeUpdate();
+            }catch(SQLException e) {
+                e.printStackTrace();
+            }
+        });
+    }
 
+    @Override
+    public Collection<Barang> search(String keyword) {
+        Collection<Barang> returnList = new LinkedList<>();
+
+        String nonNullString = Objects.requireNonNull(keyword);
+        String query = "SELECT * FROM barang WHERE kode LIKE CONCAT('%',?,'%')" +
+                        "OR nama LIKE CONCAT('%', ?, '%');";
+        conn.ifPresent(c -> {
+            try {
+                PreparedStatement ps = c.prepareStatement(query);
+                ps.setString(1, keyword);
+                ps.setString(2, keyword);
+
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    String kode = rs.getString("kode");
+                    String nama = rs.getString("nama");
+                    int harga = rs.getInt("harga");
+//                    String createdBy = rs.getString("created_by");
+//                    String updatedBy = rs.getString("updated_by");
+//                    Date createdDate = rs.getDate("date_created");
+//                    Date lastModified = rs.getDate("last_modified");
+
+                    Barang bRes = new Barang();
+                    bRes.setKode(kode);
+                    bRes.setNama(nama);
+                    bRes.setHarga(harga);
+//                    bRes.setCreatedBy(createdBy);
+//                    bRes.setUpdatedBy(updatedBy);
+//                    bRes.setDate_created(createdDate);
+//                    bRes.setLast_modified(lastModified);
+
+                    returnList.add(bRes);
+                }
+            }catch(SQLException e) {
+                e.printStackTrace();
+            }
+        });
+
+        return returnList;
     }
 }
